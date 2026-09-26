@@ -2,6 +2,7 @@ from gymnasium.envs.classic_control.cartpole import CartPoleEnv
 from agent import CartPoleAgent
 import numpy as np
 import scipy
+import matplotlib.pyplot as plt
 np.set_printoptions(precision=2)
 
 
@@ -38,10 +39,20 @@ def test_agent(parameters, render=False):
 
 
 # Write a search to find the best parameters for the CartPoleAgent.
-# YOUR CODE HERE
 params = [ 0.0, 0.0, 0.0, 0.0, 0.0]
+rewards_over_time = []
 
 def maximize(parameters):
-    return -test_agent(parameters, render=True)
+    reward = test_agent(parameters, render=False)
+    rewards_over_time.append(reward)
+    return -reward
 
-scipy.optimize.minimize(maximize, x0=params, method='BFGS', bounds = [(0,1),(0,1),(0,1),(0,1),(0,1)])
+scipy.optimize.minimize(maximize, x0=params, method='Nelder-Mead')
+
+# ploting
+plt.plot(rewards_over_time)
+plt.xlabel("Iteration")
+plt.ylabel("Cumulative reward")
+plt.title("Cart-Pole Performance")
+plt.savefig("performance_over_time.png")
+plt.close()
