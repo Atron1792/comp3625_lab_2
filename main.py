@@ -51,8 +51,8 @@ scipy.optimize.minimize(maximize, x0=params, method='Nelder-Mead')
 
 # ploting
 plt.plot(rewards_over_time)
-plt.xlabel("Iteration")
-plt.ylabel("Cumulative reward")
+plt.xlabel("Number of Parameter Set Evaluations")
+plt.ylabel("Cumulative Reward")
 plt.title("Cart-Pole Performance")
 plt.savefig("performance_over_time.png")
 plt.close()
